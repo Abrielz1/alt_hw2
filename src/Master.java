@@ -25,7 +25,9 @@ public class Main {
                 case 5 :
                     converterMonth.yearDataPrint();
                     break;
-
+                case 6 :
+                    converterMonth.hlamTest();
+                    break;
                 case 0 :{
                     System.out.println("Программа завершена\n До свидания!");
                     return;

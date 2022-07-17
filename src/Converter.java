@@ -10,6 +10,9 @@ public class Converter {
     ArrayList<int[]> countYear= new ArrayList<>();
     ArrayList<YearData> year = new ArrayList<>();
 
+    ArrayList<Integer> yearCount;
+
+
     void convYear() {
         String content = readFileContentsOrNull("resources/y.2021.csv");
         String[] lines = content.split("\r?\n");
@@ -44,6 +47,43 @@ public class Converter {
             }
             monthToYearData.put(i, months);
         }
+    }
+
+    public void hlamTest(){
+        countMonth = new ArrayList<>();
+        for (Integer data : monthToYearData.keySet()) {
+            int incomeMonth = 0;
+            int expensesMonth = 0;
+            for (MonthData set : monthToYearData.get(data)) {
+                if (set.isExpense) {
+                    expensesMonth += set.quantity * set.sumOfOne;
+                } else {
+                    incomeMonth += set.quantity * set.sumOfOne;
+                }
+            }
+            countMonth.add(new CountMonth(incomeMonth, expensesMonth));
+        }
+
+        yearCount = new ArrayList<Integer>();;
+        int incomeY = 0;
+        int expensesY = 0;
+        for (YearData j : year) {
+
+            if (!j.isExpense) {
+                incomeY = j.amount;
+            } else {
+                expensesY = j.amount;
+            }
+            int step = incomeY;
+            int stepin = expensesY;
+            if (!(step == 0) && !(stepin == 0)) {
+                yearCount.add(step, stepin);
+                incomeY = 0;
+                expensesY = 0;
+                //  step = new ArrayList<>();
+            }
+        }
+
     }
 
 
@@ -191,7 +231,10 @@ public class Converter {
         for (int[] content : countYear) {
 
             for (int num :content) {
-                System.out.println(num);
+                //  System.out.println(num);
+                for (CountMonth month : countMonth) {
+
+                }
 
             }
         }
