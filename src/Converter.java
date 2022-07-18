@@ -7,13 +7,13 @@ public class Converter {
     HashMap<Integer, ArrayList<MonthData>>monthToYearData = new HashMap<>();
     //HashMap<Integer, ArrayList<CountYear>>yearCount =  new HashMap<>();
     ArrayList<CountMonth> countMonth = new ArrayList<>();
-    ArrayList<int[]> countYear= new ArrayList<>();
+    //ArrayList<int[]> countYear= new ArrayList<>();
     ArrayList<YearData> year = new ArrayList<>();
 
-    ArrayList<Integer> yearCount;
+    ArrayList<CountYear> yearCount = new ArrayList<>(); //РўСѓС‚ РїСЂРѕР±Р»РµРјР°, РѕРЅ СЂР°Р·РјРµСЂРѕРј 0
 
 
-    void convYear() {
+    void convYear() { // СЂСѓР±РёРј РіРѕРґ РЅР° С‡Р°СЃС‚Рё
         String content = readFileContentsOrNull("resources/y.2021.csv");
         String[] lines = content.split("\r?\n");
         year = new ArrayList<>();
@@ -29,7 +29,7 @@ public class Converter {
         //  grandFinal();
     }
 
-    public void converterMonth(){        // рубим месяцы на части...
+    public void converterMonth(){        // СЂСѓР±РёРј РјРµСЃСЏС†С‹ РЅР° С‡Р°СЃС‚Рё...
         ArrayList<MonthData>months;
         for (int i = 1; i < 4; i++) {
             String content = readFileContentsOrNull("resources/m.20210" + i + ".csv");
@@ -49,40 +49,40 @@ public class Converter {
         }
     }
 
-    public void hlamTest(){
-        countMonth = new ArrayList<>();
-        for (Integer data : monthToYearData.keySet()) {
+    public void hlamTest(){ // РўСѓС‚ РїРѕСЂСѓР±Р°РЅРЅРѕРµ СЃРѕСЂС‚РёСЂСѓРµРј РїРѕ РїР°СЂРЅРѕ Р”РѕС…РѕРґ Рё Р Р°СЃС…РѕРґ Рё РїРёС…Р°РµРј РІ СЃРїРёСЃРѕРє
+   //     countMonth = new ArrayList<>();
+        for (Integer data : monthToYearData.keySet()) { // РўСѓС‚ РїРѕС‚СЂРѕС€РёРј
             int incomeMonth = 0;
             int expensesMonth = 0;
-            for (MonthData set : monthToYearData.get(data)) {
+            for (MonthData set : monthToYearData.get(data)) { // РўСѓС‚ РїРѕС‚СЂРѕС€РёРј Рё РІС‹РґС‘СЂРіРёРІР°РµРј
                 if (set.isExpense) {
-                    expensesMonth += set.quantity * set.sumOfOne;
+                    expensesMonth += set.quantity * set.sumOfOne; // СЃРѕСЂС‚РёСЂСѓРµРј СЂР°СЃС…РѕРґС‹
                 } else {
-                    incomeMonth += set.quantity * set.sumOfOne;
+                    incomeMonth += set.quantity * set.sumOfOne; // РЎРѕСЂС‚РёСЂСѓРµРј РґРѕС…РѕРґС‹
                 }
             }
-            countMonth.add(new CountMonth(incomeMonth, expensesMonth));
+            countMonth.add(new CountMonth(incomeMonth, expensesMonth)); // РџРѕ-РїР°СЂРЅРѕ РїРёС…Р°РµРј РІ СЃРїРёСЃРѕРє
         }
 
-        yearCount = new ArrayList<Integer>();;
-        int incomeY = 0;
-        int expensesY = 0;
-        for (YearData j : year) {
+
+        int expenses = 0;
+        int income = 0;
+        for (YearData j : year) { // РџРѕС‚СЂРѕС€РёРј
 
             if (!j.isExpense) {
-                incomeY = j.amount;
+                income = j.amount; // РЎРѕСЂС‚РёСЂСѓРµРј РґРѕС…РѕРґС‹
             } else {
-                expensesY = j.amount;
+                expenses = j.amount; // СЃРѕСЂС‚РёСЂСѓРµРј СЂР°СЃС…РѕРґС‹
             }
-            int step = incomeY;
-            int stepin = expensesY;
-            if (!(step == 0) && !(stepin == 0)) {
-                yearCount.add(step, stepin);
-                incomeY = 0;
-                expensesY = 0;
-                //  step = new ArrayList<>();
+
+            if (!(income == 0) && !(expenses == 0)) { //СЃРѕСЂС‚РёСЂСѓРµСЃ, С‚Р°Рє, С‡С‚Рѕ Р±С‹ РёРґСѓС‰РёР№ РІ РїР°СЂРµ СЃ СЂР°СЃС…РѕРґРѕРј РёР»Рё РґРѕС…РѕРґРѕРј 0, РѕС‚РєРёРЅСѓР»СЃСЏ Рё РґРѕР±Р°РІРёР»СЃСЏ, С‚РѕР»СЊРєРѕ СЂР°СЃС…РѕРґ Рё РґРѕС…РѕРґ РїРѕ-РїР°СЂРЅРѕ РІ СЃРїРёСЃРѕРє.
+             //   yearCount.add(income, expenses);
+                yearCount.add(new CountYear(income, expenses)); // РїСЂРё РїРѕРїС‹С‚РєРµ РґРѕР±Р°РІРёС‚СЃСЏ РїР°РґР°РµС‚
+
+
             }
         }
+
 
     }
 
@@ -107,7 +107,7 @@ public class Converter {
             int expensesYear= 0;
             for(YearData j : year) {
 
-                if(j.month.equals(i.month) && !j.isExpense) { //Здесь сравниваются 2 строки по-этому я затрудняюсь найти решение
+                if(j.month.equals(i.month) && !j.isExpense) { //Р—РґРµСЃСЊ СЃСЂР°РІРЅРёРІР°СЋС‚СЃСЏ 2 СЃС‚СЂРѕРєРё РїРѕ-СЌС‚РѕРјСѓ СЏ Р·Р°С‚СЂСѓРґРЅСЏСЋСЃСЊ РЅР°Р№С‚Рё СЂРµС€РµРЅРёРµ
                     incomeYear = j.amount;
                 } else if (j.month.equals(i.month) && j.isExpense) {
                     expensesYear = j.amount;
@@ -115,14 +115,19 @@ public class Converter {
             }
             countYear.add(new CountYear(incomeYear, expensesYear));
         }
-        for(int i = 0; i < countYear.size(); i++) { //Данный костыль выкидывает лишние строки, которые дублируются.
-            if(i%1 == 0) countYear.remove(i);   //оно работает.
+        for(int i = 0; i < countYear.size(); i++) { //Р”Р°РЅРЅС‹Р№ РєРѕСЃС‚С‹Р»СЊ РІС‹РєРёРґС‹РІР°РµС‚ Р»РёС€РЅРёРµ СЃС‚СЂРѕРєРё, РєРѕС‚РѕСЂС‹Рµ РґСѓР±Р»РёСЂСѓСЋС‚СЃСЏ.
+            if(i%1 == 0) countYear.remove(i);   //РѕРЅРѕ СЂР°Р±РѕС‚Р°РµС‚.
         }
 
     }
    */
 
-    void yearlyReport() {
+    //     incomeY = 0;
+    //    expensesY = 0;
+    //  step = new ArrayList<>();
+    //      int step = incomeY;
+    //    int stepin = expensesY;
+  /*  void yearlyReport() {
         countMonth = new ArrayList<>();
         for (Integer data : monthToYearData.keySet()) {
             int incomeMonth = 0;
@@ -154,12 +159,13 @@ public class Converter {
                 incomeY = 0;
                 expensesY = 0;
                 step = new int[2];
+           yearlyReport()
             }
         }
     }
-
-    void monthDataPrint() {
-        int a = 1; // стартовый месяц, итератор
+*/
+    void monthDataPrint() { //РџРµС‡Р°С‚Р°РµРј РјР°РєСЃРёРјР°Р»СЊРЅС‹Рµ РґРѕС…РѕРґС‹ - СЂР°СЃС…РѕРґС‹ Р·Р° РєР°Р¶РґС‹Р№ РјРµСЃСЏС†
+        int a = 1; // СЃС‚Р°СЂС‚РѕРІС‹Р№ РјРµСЃСЏС†, РёС‚РµСЂР°С‚РѕСЂ
         for (Integer values : monthToYearData.keySet()) {
 
             int tempProfit = 0;
@@ -182,13 +188,13 @@ public class Converter {
                     Profit = content.itemName;
                 }
             }
-            System.out.println("Максимальные доходы за " + a + " месяц " + finProfit + " " + Profit);
-            System.out.println("Максимальные расходы за " + a + " месяц " + finExpense+ " " + Expense);
+            System.out.println("РњР°РєСЃРёРјР°Р»СЊРЅС‹Рµ РґРѕС…РѕРґС‹ Р·Р° " + a + " РјРµСЃСЏС† " + finProfit + " " + Profit);
+            System.out.println("РњР°РєСЃРёРјР°Р»СЊРЅС‹Рµ СЂР°СЃС…РѕРґС‹ Р·Р° " + a + " РјРµСЃСЏС† " + finExpense+ " " + Expense);
             a++;
         }
     }
 
-    void yearDataPrint() { // итерации переименованы, что бы не запутаться я в курсе, что было в теле цикла, там и остаётся.
+    void yearDataPrint() { //РџРµС‡Р°С‚Р°РµРј РјР°РєСЃРёРјР°Р»СЊРЅС‹Рµ РґРѕС…РѕРґС‹ - СЂР°СЃС…РѕРґС‹ Р·Р° РіРѕРґ
         int ourProfit = 0;
         int a = 0;
         int b = 0;
@@ -197,7 +203,7 @@ public class Converter {
         int expence = 0;
         int[]sumExpense = new int[3];
         int[]sumProfit = new int[3];
-        System.out.println("Отчет за 2021 г.");
+        System.out.println("РћС‚С‡РµС‚ Р·Р° 2021 Рі.");
         for (YearData content : year) {
             if (content.isExpense){
                 expence = (content.amount);
@@ -208,7 +214,7 @@ public class Converter {
             }
         }
         for (int z = 1; z < 4; z++) {
-            System.out.println("Прибыль за " + z + " месяц составил " + (sumProfit[z - 1] - sumExpense[z - 1]));
+            System.out.println("РџСЂРёР±С‹Р»СЊ Р·Р° " + z + " РјРµСЃСЏС† СЃРѕСЃС‚Р°РІРёР» " + (sumProfit[z - 1] - sumExpense[z - 1]));
 
         }
         for (int k = 0; k < sumProfit.length; k++) {
@@ -218,32 +224,31 @@ public class Converter {
         for (int h = 0; h < sumExpense.length; h++) {
             ourExpense += sumExpense[h];
         }
-        System.out.println("Медианный доход за все месяцы " + ourProfit/12);
-        System.out.println("Медианный расход за все месяцы " + ourExpense/12);
+        System.out.println("РњРµРґРёР°РЅРЅС‹Р№ РґРѕС…РѕРґ Р·Р° РІСЃРµ РјРµСЃСЏС†С‹ " + ourProfit/12);
+        System.out.println("РњРµРґРёР°РЅРЅС‹Р№ СЂР°СЃС…РѕРґ Р·Р° РІСЃРµ РјРµСЃСЏС†С‹ " + ourExpense/12);
 
     }
 
-    void grandFinal() {
-        yearlyReport();
-        if (countYear.isEmpty()) {
-            System.out.println("Данные отсутствуют");
-        } else System.out.println("Данные присутствуют");
-        for (int[] content : countYear) {
+    void grandFinal() { //РўСѓС‚ СЃРІРµСЂСЏРµРј СЃС‡С‘С‚С‹
 
-            for (int num :content) {
-                //  System.out.println(num);
-            //    for (CountMonth month : countMonth) {
-
-           //     }
-
-            }
+      if ((yearCount.isEmpty())) { //РїСЂРѕРІРµСЂСЏРµРј РїСѓСЃС‚ РёР»Рё РЅРµС‚ СЃРїРёСЃРѕРє
+           System.out.println("Р”Р°РЅРЅС‹Рµ РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‚");
+       } else System.out.println("Р”Р°РЅРЅС‹Рµ РїСЂРёСЃСѓС‚СЃС‚РІСѓСЋС‚");
+        for (int i = 0; i< yearCount .size(); i++) { //РїРѕС‚СЂРѕС€РёРј
+            System.out.println(yearCount.get(i).expenses + yearCount.get(i).income);
+              if(yearCount.get(i).expenses != countMonth.get(i).expenses || yearCount.get(i).income != countMonth.get(i).income) { //РЎРѕР±СЃС‚РІРµРЅРЅРѕ СЃРІРµСЂСЏРµРј
+                 System.out.println("Р’ РјРµСЃСЏС†Рµ " + (i+1) + " РѕС€РёР±РєР°");
+            } else  System.out.println("РћС€РёР±РѕРє РЅРµС‚" + "\n");
         }
-    }
+        }
+
+
+ //  }
     private String readFileContentsOrNull(String path)  {
         try {
             return Files.readString(Path.of(path));
         }           catch (IOException e) {
-            System.out.println("Невозможно прочитать файл с месячным отчётом. Возможно, файл не находится в нужной директории.");
+            System.out.println("РќРµРІРѕР·РјРѕР¶РЅРѕ РїСЂРѕС‡РёС‚Р°С‚СЊ С„Р°Р№Р» СЃ РјРµСЃСЏС‡РЅС‹Рј РѕС‚С‡С‘С‚РѕРј. Р’РѕР·РјРѕР¶РЅРѕ, С„Р°Р№Р» РЅРµ РЅР°С…РѕРґРёС‚СЃСЏ РІ РЅСѓР¶РЅРѕР№ РґРёСЂРµРєС‚РѕСЂРёРё.");
             return null;
         }
     }

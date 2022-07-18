@@ -1,9 +1,9 @@
-import java.util.*;         // com = месяц
-public class Main {
+import java.util.*;         // com = РјРµСЃСЏС†
+public class Master {
 
     public static void main(String[] args) {
         Converter converterMonth = new Converter();
-        System.out.println("Здравствуйте!" + "\n");
+        System.out.println("Р—РґСЂР°РІСЃС‚РІСѓР№С‚Рµ!" + "\n");
         Scanner scanner = new Scanner(System.in);
 
         while (true){
@@ -29,10 +29,10 @@ public class Main {
                     converterMonth.hlamTest();
                     break;
                 case 0 :{
-                    System.out.println("Программа завершена\n До свидания!");
+                    System.out.println("РџСЂРѕРіСЂР°РјРјР° Р·Р°РІРµСЂС€РµРЅР°\n Р”Рѕ СЃРІРёРґР°РЅРёСЏ!");
                     return;
                 }
-                default : System.out.println("Такой команды нет\n");
+                default : System.out.println("РўР°РєРѕР№ РєРѕРјР°РЅРґС‹ РЅРµС‚\n");
                     break;
             }
         }
