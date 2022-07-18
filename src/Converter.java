@@ -50,7 +50,7 @@ public class Converter {
     }
 
     public void hlamTest(){ // Тут порубанное сортируем по парно Доход и Расход и пихаем в список
-   //     countMonth = new ArrayList<>();
+        //     countMonth = new ArrayList<>();
         for (Integer data : monthToYearData.keySet()) { // Тут потрошим
             int incomeMonth = 0;
             int expensesMonth = 0;
@@ -76,7 +76,7 @@ public class Converter {
             }
 
             if (!(income == 0) && !(expenses == 0)) { //сортируес, так, что бы идущий в паре с расходом или доходом 0, откинулся и добавился, только расход и доход по-парно в список.
-             //   yearCount.add(income, expenses);
+                //   yearCount.add(income, expenses);
                 yearCount.add(new CountYear(income, expenses)); // при попытке добавится падает
 
 
@@ -231,19 +231,19 @@ public class Converter {
 
     void grandFinal() { //Тут сверяем счёты
 
-      if ((yearCount.isEmpty())) { //проверяем пуст или нет список
-           System.out.println("Данные отсутствуют");
-       } else System.out.println("Данные присутствуют");
+        if ((yearCount.isEmpty())) { //проверяем пуст или нет список
+            System.out.println("Данные отсутствуют");
+        } else System.out.println("Данные присутствуют");
         for (int i = 0; i< yearCount .size(); i++) { //потрошим
             System.out.println(yearCount.get(i).expenses + yearCount.get(i).income);
-              if(yearCount.get(i).expenses != countMonth.get(i).expenses || yearCount.get(i).income != countMonth.get(i).income) { //Собственно сверяем
-                 System.out.println("В месяце " + (i+1) + " ошибка");
+            if(yearCount.get(i).expenses != countMonth.get(i).expenses || yearCount.get(i).income != countMonth.get(i).income) { //Собственно сверяем
+                System.out.println("В месяце " + (i+1) + " ошибка");
             } else  System.out.println("Ошибок нет" + "\n");
         }
-        }
+    }
 
 
- //  }
+    //  }
     private String readFileContentsOrNull(String path)  {
         try {
             return Files.readString(Path.of(path));

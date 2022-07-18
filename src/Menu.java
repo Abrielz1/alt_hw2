@@ -1,12 +1,12 @@
 import java.util.*;
 public class Menu {
     static public void startMenu() {
-        System.out.println("1. Считать все месячные отчёты.");
-        System.out.println("2. Считать годовой отчёт.");
-        System.out.println("3. Сверить отчёты.");
-        System.out.println("4. Вывести информацию о всех месячных отчётах.");
-        System.out.println("5. Вывести информацию о годовом отчёте");
-        System.out.println("6. Тест");
-        System.out.println("0. Выйти из приложения: \n");
+        System.out.println("1. РЎС‡РёС‚Р°С‚СЊ РІСЃРµ РјРµСЃСЏС‡РЅС‹Рµ РѕС‚С‡С‘С‚С‹.");
+        System.out.println("2. РЎС‡РёС‚Р°С‚СЊ РіРѕРґРѕРІРѕР№ РѕС‚С‡С‘С‚.");
+        System.out.println("3. РЎРІРµСЂРёС‚СЊ РѕС‚С‡С‘С‚С‹.");
+        System.out.println("4. Р’С‹РІРµСЃС‚Рё РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РІСЃРµС… РјРµСЃСЏС‡РЅС‹С… РѕС‚С‡С‘С‚Р°С….");
+        System.out.println("5. Р’С‹РІРµСЃС‚Рё РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РіРѕРґРѕРІРѕРј РѕС‚С‡С‘С‚Рµ");
+        System.out.println("6. РўРµСЃС‚");
+        System.out.println("0. Р’С‹Р№С‚Рё РёР· РїСЂРёР»РѕР¶РµРЅРёСЏ: \n");
     }
 }
